@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mindfit.databinding.FragmentRegisterBinding
 import com.example.mindfit.database.DatabaseHelper
+import com.example.mindfit.database.User
 
 class RegisterFragment : Fragment() {
 
@@ -45,10 +46,12 @@ class RegisterFragment : Fragment() {
             return
         }
 
-        val inserted = dbHelper.insertUser(name, email, password)
-        if (inserted) {
+        val user = User(name = name, email = email, password = password)
+        val insertedId = dbHelper.insertUser(user)
+
+        if (insertedId > 0) {
             Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
-            // Aquí puedes navegar al login si deseas
+            // Aquí puedes navegar a la pantalla de login si lo deseas
         } else {
             Toast.makeText(requireContext(), "Error al registrar", Toast.LENGTH_SHORT).show()
         }

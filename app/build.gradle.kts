@@ -63,4 +63,10 @@ dependencies {
     implementation("com.google.zxing:core:3.5.3")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation ("androidx.appcompat:appcompat:1.6.1")
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+
+// Para Task y ApiException
+    implementation("com.google.android.gms:play-services-base:18.2.0")
+
 }

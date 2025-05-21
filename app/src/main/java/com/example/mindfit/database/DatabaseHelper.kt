@@ -1,11 +1,9 @@
 package com.example.mindfit.database
 
-
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.mindfit.database.User
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -43,11 +41,26 @@ class DatabaseHelper(context: Context) :
     fun insertUser(user: User): Long {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(COLUMN_USERNAME, user.username)
-            put(COLUMN_PASSWORD, user.password)
+            put(COLUMN_USERNAME, user.name) // Corregido de "name" a COLUMN_USERNAME
             put(COLUMN_EMAIL, user.email)
+            put(COLUMN_PASSWORD, user.password)
         }
         return db.insert(TABLE_USERS, null, values)
+    }
+
+    // Verificar si un usuario ya existe por email
+    fun checkUserExists(email: String): Boolean {
+        val db = readableDatabase
+        val cursor = db.query(
+            TABLE_USERS,
+            arrayOf(COLUMN_ID),
+            "$COLUMN_EMAIL = ?",
+            arrayOf(email),
+            null, null, null
+        )
+        val exists = cursor.count > 0
+        cursor.close()
+        return exists
     }
 
     // Verificar usuario por nombre y contraseña
