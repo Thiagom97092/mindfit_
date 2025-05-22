@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MindFit</string>
     <string name="app_icon_desc">Icono de la aplicación MindFit</string>
-
+    <string name="img_layout_login">Imagen de la pantalla de login</string>
+    <string name="img_layout_register">Imagen de la pantalla de resgistro</string>
+    <string name="img_qr_code">Imagen de codigo QR</string>
 </resources>

@@ -4,19 +4,31 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/dark_background">
+
+    <ImageView
+        android:id="@+id/qr_img"
+        android:layout_width="wrap_content"
+        android:layout_height="287dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/img_qr_code"
+        android:src="@drawable/qr_code_image_in" />
 
     <TextView
         android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Usuario:"
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Código QR:"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
 
     <ImageView
         android:id="@+id/qrImageView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"/>
+        android:layout_width="332dp"
+        android:layout_height="287dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/img_qr_code"
+        android:src="@drawable/qr_code_image" />
 </LinearLayout>
