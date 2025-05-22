@@ -4,18 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/dark_background">
+
+    <!-- Imagen del ícono de la aplicación -->
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_mindfit_logo"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/app_icon_desc" />
 
     <TextView
         android:text="¡Bienvenido a MINDFIT!"
         android:textSize="24sp"
         android:layout_marginBottom="24dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btn_empezar"
         android:text="Empezar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/purple_button"
+        android:textColor="@color/white" />
 </LinearLayout>
