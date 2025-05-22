@@ -14,6 +14,7 @@
     <!-- Color de Boton Morado -->
     <color name="purple_button">#c86dd7</color>
     <color name="red_logout">#FF4444</color>
+    <color name="gray_save">#5d5b56</color>
 
 
 </resources>

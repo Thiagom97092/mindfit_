@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_background">
+
+    <ImageView
+        android:id="@+id/cultura_img"
+        android:layout_width="285dp"
+        android:layout_height="292dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="@string/img_layout_cultura"
+        android:src="@drawable/img_cultura" />
+
+    <Spinner
+        android:id="@+id/spinner_clases_cultura"
+        android:layout_width="287dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/purple_button" />
+
+    <Button
+        android:id="@+id/btn_select_date"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_button"
+        android:text="Seleccionar Fecha" />
+
+    <Button
+        android:id="@+id/btn_select_time"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/purple_button"
+        android:text="Seleccionar Hora" />
+
+    <TextView
+        android:id="@+id/tvFechaHoraSeleccionada"
+        android:text="Fecha y hora seleccionadas: "
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btn_guardar_reserva_cultura"
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:background="@color/gray_save"
+        android:text="Guardar Cita" />
+</LinearLayout>

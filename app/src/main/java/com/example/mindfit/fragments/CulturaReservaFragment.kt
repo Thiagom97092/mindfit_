@@ -22,7 +22,7 @@ class CulturaReservaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_cultura_reserva, container, false)
+        val view = inflater.inflate(R.layout.fragment_cultura, container, false)
         dbHelper = DatabaseHelper(requireContext())
 
         spinner = view.findViewById(R.id.spinner_clases_cultura)
