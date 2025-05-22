@@ -25,7 +25,7 @@ class DatabaseHelper(context: Context) :
                 $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_USERNAME TEXT NOT NULL,
                 $COLUMN_PASSWORD TEXT NOT NULL,
-                $COLUMN_EMAIL TEXT
+                $COLUMN_EMAIL TEXT NOT NULL UNIQUE
             );
         """.trimIndent()
 
@@ -41,7 +41,7 @@ class DatabaseHelper(context: Context) :
     fun insertUser(user: User): Long {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(COLUMN_USERNAME, user.name) // Corregido de "name" a COLUMN_USERNAME
+            put(COLUMN_USERNAME, user.name)
             put(COLUMN_EMAIL, user.email)
             put(COLUMN_PASSWORD, user.password)
         }
@@ -78,6 +78,27 @@ class DatabaseHelper(context: Context) :
         if (cursor.moveToFirst()) {
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
             val email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL))
+            user = User(id, username, password, email)
+        }
+        cursor.close()
+        return user
+    }
+
+    // Verificar usuario por email y contraseña (para LoginFragment)
+    fun checkUserByEmailAndPassword(email: String, password: String): User? {
+        val db = readableDatabase
+        val cursor = db.query(
+            TABLE_USERS,
+            arrayOf(COLUMN_ID, COLUMN_USERNAME, COLUMN_EMAIL),
+            "$COLUMN_EMAIL = ? AND $COLUMN_PASSWORD = ?",
+            arrayOf(email, password),
+            null, null, null
+        )
+
+        var user: User? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
+            val username = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME))
             user = User(id, username, password, email)
         }
         cursor.close()
