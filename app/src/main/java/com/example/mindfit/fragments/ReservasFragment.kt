@@ -9,51 +9,38 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mindfit.R
 
-class HomeFragment : Fragment() {
+class ReservasFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_reservas, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnReservas = view.findViewById<Button>(R.id.btn_reservas)
-        val btnQr = view.findViewById<Button>(R.id.btn_qr)
-        val btnHistorial = view.findViewById<Button>(R.id.btn_historial)
+        val btnCultura = view.findViewById<Button>(R.id.btn_cultura)
+        val btnPsicologia = view.findViewById<Button>(R.id.btn_psicologia)
         val btnLogout = view.findViewById<Button>(R.id.btn_logout)
 
-        btnReservas.setOnClickListener {
-            Toast.makeText(requireContext(), "Abrir Reservas", Toast.LENGTH_SHORT).show()
+        btnCultura.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ReservasFragment())
+                .replace(R.id.fragment_container, CulturaFragment())
                 .addToBackStack(null)
                 .commit()
         }
 
-        btnQr.setOnClickListener {
+        btnPsicologia.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, QRFragment())
+                .replace(R.id.fragment_container, PsicologiaFragment())
                 .addToBackStack(null)
                 .commit()
-        }
-
-        btnHistorial.setOnClickListener {
-            Toast.makeText(requireContext(), "Abrir Historial", Toast.LENGTH_SHORT).show()
-
-            // Aquí puedes abrir tu HistorialFragment cuando lo tengas listo:
-            // parentFragmentManager.beginTransaction()
-            //     .replace(R.id.fragment_container, HistorialFragment())
-            //     .addToBackStack(null)
-            //     .commit()
         }
 
         btnLogout.setOnClickListener {
             Toast.makeText(requireContext(), "Cerrando sesión", Toast.LENGTH_SHORT).show()
-
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, LoginFragment())
                 .commit()
