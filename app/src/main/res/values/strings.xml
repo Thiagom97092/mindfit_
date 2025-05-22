@@ -4,4 +4,5 @@
     <string name="img_layout_login">Imagen de la pantalla de login</string>
     <string name="img_layout_register">Imagen de la pantalla de resgistro</string>
     <string name="img_qr_code">Imagen de codigo QR</string>
+    <string name="img_layout_cultura">Imagen de la pantalla de cultura</string>
 </resources>

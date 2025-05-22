@@ -41,6 +41,6 @@
         android:text="Cerrar sesión"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_light"
+        android:background="@color/red_logout"
         android:textColor="@android:color/white" />
 </LinearLayout>

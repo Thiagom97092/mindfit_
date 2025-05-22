@@ -4,32 +4,54 @@
     android:gravity="center"
     android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dark_background">
+
+    <ImageView
+        android:id="@+id/register_img"
+        android:layout_width="322dp"
+        android:layout_height="395dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/img_layout_cultura"
+        android:src="@drawable/img_cultura" />
+
+    <Spinner
+        android:id="@+id/spinner_clases"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/purple_button"/>
+
 
     <Button
         android:id="@+id/btnSeleccionarFecha"
-        android:text="Seleccionar Fecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_button"
+        android:text="Seleccionar Fecha" />
 
     <Button
         android:id="@+id/btnSeleccionarHora"
-        android:text="Seleccionar Hora"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:background="@color/purple_button"
+        android:text="Seleccionar Hora" />
 
     <TextView
         android:id="@+id/tvFechaHoraSeleccionada"
         android:text="Fecha y hora seleccionadas: "
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btnGuardarCita"
-        android:text="Guardar Cita"
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@color/red_logout"
+        android:text="Guardar Cita" />
 </LinearLayout>

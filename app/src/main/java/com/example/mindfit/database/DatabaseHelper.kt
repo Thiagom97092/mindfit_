@@ -211,5 +211,30 @@ class DatabaseHelper(context: Context) :
         }
         return db.insert(TABLE_CITAS, null, values)
     }
+    fun insertarCita(tipo: String, clase: String, fecha: String, hora: String): Boolean {
+        val db = writableDatabase
+
+        val cursor = db.query(
+            "citas",
+            arrayOf("id"),
+            "tipo = ? AND fecha = ? AND hora = ?",
+            arrayOf(tipo, fecha, hora),
+            null, null, null
+        )
+
+        val yaExiste = cursor.moveToFirst()
+        cursor.close()
+
+        if (yaExiste) return false
+
+        val values = ContentValues().apply {
+            put("tipo", tipo)
+            put("clase", clase)
+            put("fecha", fecha)
+            put("hora", hora)
+        }
+
+        return db.insert("citas", null, values) != -1L
+    }
 
 }
