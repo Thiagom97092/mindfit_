@@ -7,4 +7,5 @@
     <string name="img_layout_cultura">Imagen de la pantalla de cultura</string>
     <string name="img_layout_psicologia">Imagen de la pantalla de psicologia</string>
     <string name="img_layout_home">Imagen de la pantalla principal</string>
+    <string name="img_layout_reservas">Imagen de la pantalla de reservas</string>
 </resources>

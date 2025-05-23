@@ -4,25 +4,40 @@
     android:gravity="center"
     android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dark_background">
+
+    <ImageView
+        android:id="@+id/reservas_img"
+        android:layout_width="285dp"
+        android:layout_height="292dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="@string/img_layout_reservas"
+        android:src="@drawable/img_reservas" />
 
     <Button
         android:id="@+id/btn_cultura"
         android:text="Cultura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:background="@color/purple_button"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_psicologia"
         android:text="Psicología"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="32dp"
+        android:background="@color/purple_button"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_logout"
         android:text="Cerrar Sesión"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/red_logout"
+        android:textColor="@color/white"/>
 </LinearLayout>
