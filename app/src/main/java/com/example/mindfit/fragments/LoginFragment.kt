@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mindfit.R
 import com.example.mindfit.database.DatabaseHelper
-import com.example.mindfit.fragments.HomeFragment
 
 class LoginFragment : Fragment() {
 
@@ -33,6 +32,7 @@ class LoginFragment : Fragment() {
         val etPassword = view.findViewById<EditText>(R.id.et_password)
         val btnLogin = view.findViewById<Button>(R.id.btn_login)
         val tvRegister = view.findViewById<TextView>(R.id.tv_register)
+        val tvForgotPassword = view.findViewById<TextView>(R.id.tv_forgot_password)
 
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
@@ -46,7 +46,6 @@ class LoginFragment : Fragment() {
                 if (user != null) {
                     Toast.makeText(requireContext(), "Bienvenido ${user.name}", Toast.LENGTH_SHORT).show()
 
-                    // 👉 Ir al HomeFragment
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, HomeFragment())
                         .commit()
@@ -59,6 +58,13 @@ class LoginFragment : Fragment() {
         tvRegister.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, RegisterFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        tvForgotPassword.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PasswordRecoveryFragment())
                 .addToBackStack(null)
                 .commit()
         }

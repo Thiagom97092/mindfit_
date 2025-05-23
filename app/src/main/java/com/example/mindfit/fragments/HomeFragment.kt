@@ -44,11 +44,10 @@ class HomeFragment : Fragment() {
         btnHistorial.setOnClickListener {
             Toast.makeText(requireContext(), "Abrir Historial", Toast.LENGTH_SHORT).show()
 
-            // Aquí puedes abrir tu HistorialFragment cuando lo tengas listo:
-            // parentFragmentManager.beginTransaction()
-            //     .replace(R.id.fragment_container, HistorialFragment())
-            //     .addToBackStack(null)
-            //     .commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, AppointmentHistoryFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         btnLogout.setOnClickListener {

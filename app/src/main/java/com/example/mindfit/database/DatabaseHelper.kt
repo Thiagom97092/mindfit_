@@ -237,4 +237,43 @@ class DatabaseHelper(context: Context) :
         return db.insert("citas", null, values) != -1L
     }
 
+    fun checkUserExistsByEmail(email: String): Boolean {
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM users WHERE email = ?", arrayOf(email))
+        val exists = cursor.count > 0
+        cursor.close()
+        db.close()
+        return exists
+    }
+
+    fun updatePasswordByEmail(email: String, newPassword: String): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("password", newPassword)
+        }
+        val rows = db.update("users", values, "email = ?", arrayOf(email))
+        db.close()
+        return rows > 0
+    }
+
+    fun getAllAppointments(): List<String> {
+        val citas = mutableListOf<String>()
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT tipo, fechaHora FROM citas ORDER BY fechaHora", null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val tipo = cursor.getString(0)
+                val fechaHora = cursor.getString(1)
+                citas.add("🗓️ $tipo - $fechaHora")
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+        return citas
+    }
+
+
+
 }
