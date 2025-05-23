@@ -7,34 +7,41 @@
     android:padding="24dp"
     android:background="@color/dark_background">
 
-    <TextView
-        android:text="Pantalla Principal"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/home_img"
+        android:layout_width="322dp"
+        android:layout_height="292dp"
         android:layout_marginBottom="24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:contentDescription="@string/img_layout_home"
+        android:src="@drawable/img_home" />
+
 
     <Button
         android:id="@+id/btn_reservas"
         android:text="Reservas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:background="@color/purple_button"/>
 
     <Button
         android:id="@+id/btn_qr"
         android:text="QR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="6dp"
+        android:textColor="@color/white"
+        android:background="@color/purple_button"/>
 
     <Button
         android:id="@+id/btn_historial"
         android:text="Historial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:background="@color/purple_button"/>
 
     <Button
         android:id="@+id/btn_logout"
@@ -42,5 +49,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/red_logout"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/white" />
 </LinearLayout>

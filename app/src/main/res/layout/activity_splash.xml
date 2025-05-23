@@ -2,27 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/dark_background"
     android:gravity="center">
-
-    <ImageView
-        android:id="@+id/img_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_launcher_foreground"
-        android:contentDescription="Logo" />
 
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pasculino"
+        android:text="MINDFIT"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_below="@id/img_logo"
+        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="150dp"
+        android:layout_height="149dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="Logo"
+        android:src="@drawable/ic_mindfit_logo" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

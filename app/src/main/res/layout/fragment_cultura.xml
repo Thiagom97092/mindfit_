@@ -20,14 +20,15 @@
         android:layout_width="287dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/purple_button" />
+        android:background="@color/purple_button"/>
 
     <Button
         android:id="@+id/btn_select_date"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:background="@color/purple_button"
-        android:text="Seleccionar Fecha" />
+        android:text="Seleccionar Fecha"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_select_time"
@@ -35,8 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/purple_button"
-        android:text="Seleccionar Hora" />
-
+        android:text="Seleccionar Hora"
+        android:textColor="@color/white"/>
     <TextView
         android:id="@+id/tvFechaHoraSeleccionada"
         android:text="Fecha y hora seleccionadas: "

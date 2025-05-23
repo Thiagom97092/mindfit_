@@ -26,9 +26,9 @@
 
     <Button
         android:id="@+id/btn_empezar"
-        android:text="Empezar"
-        android:layout_width="match_parent"
+        android:layout_width="252dp"
         android:layout_height="wrap_content"
         android:background="@color/purple_button"
+        android:text="Empezar"
         android:textColor="@color/white" />
 </LinearLayout>
