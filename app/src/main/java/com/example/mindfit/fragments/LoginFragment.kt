@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.mindfit.R
-import com.example.mindfit.database.DatabaseHelper
+import com.example.mindfit.utils.DatabaseHelper
 
 class LoginFragment : Fragment() {
 
@@ -41,10 +38,10 @@ class LoginFragment : Fragment() {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                val user = databaseHelper.checkUserByEmailAndPassword(email, password)
+                val userName = databaseHelper.getUserNameByEmailAndPassword(email, password)
 
-                if (user != null) {
-                    Toast.makeText(requireContext(), "Bienvenido ${user.name}", Toast.LENGTH_SHORT).show()
+                if (userName != null) {
+                    Toast.makeText(requireContext(), "Bienvenido $userName", Toast.LENGTH_SHORT).show()
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, HomeFragment())

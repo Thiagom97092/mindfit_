@@ -3,81 +3,64 @@ package com.example.mindfit.fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.format.DateUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.mindfit.R
-import com.example.mindfit.database.Cita
-import com.example.mindfit.database.DatabaseHelper
+import com.example.mindfit.databinding.FragmentPsicologiaBinding
+import com.example.mindfit.utils.DatabaseHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
 class PsicologiaFragment : Fragment() {
 
-    private lateinit var databaseHelper: DatabaseHelper
-    private lateinit var selectedDate: Calendar
-    private lateinit var tvFechaHora: TextView
+    private var _binding: FragmentPsicologiaBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var dbHelper: DatabaseHelper
+    private var fechaHoraSeleccionada: Calendar? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_psicologia, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentPsicologiaBinding.inflate(inflater, container, false)
+        dbHelper = DatabaseHelper(requireContext())
+
+        binding.btnSeleccionarFecha.setOnClickListener { mostrarDatePicker() }
+        binding.btnSeleccionarHora.setOnClickListener { mostrarTimePicker() }
+        binding.btnGuardarCita.setOnClickListener { guardarCita() }
+
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        databaseHelper = DatabaseHelper(requireContext())
-        selectedDate = Calendar.getInstance()
-
-        tvFechaHora = view.findViewById(R.id.tvFechaHoraSeleccionada)
-        val btnFecha = view.findViewById<Button>(R.id.btnSeleccionarFecha)
-        val btnHora = view.findViewById<Button>(R.id.btnSeleccionarHora)
-        val btnGuardar = view.findViewById<Button>(R.id.btnGuardarCita)
-
-        btnFecha.setOnClickListener { mostrarSelectorFecha() }
-        btnHora.setOnClickListener { mostrarSelectorHora() }
-        btnGuardar.setOnClickListener { guardarCitaPsicologica() }
-    }
-
-    private fun mostrarSelectorFecha() {
-        val ahora = Calendar.getInstance()
+    private fun mostrarDatePicker() {
+        val calendarioActual = Calendar.getInstance()
         DatePickerDialog(
             requireContext(),
-            { _, year, month, day ->
-                selectedDate.set(Calendar.YEAR, year)
-                selectedDate.set(Calendar.MONTH, month)
-                selectedDate.set(Calendar.DAY_OF_MONTH, day)
-                actualizarTextoFechaHora()
+            { _, año, mes, dia ->
+                if (fechaHoraSeleccionada == null) fechaHoraSeleccionada = Calendar.getInstance()
+                fechaHoraSeleccionada?.set(año, mes, dia)
+                actualizarTexto()
             },
-            ahora.get(Calendar.YEAR),
-            ahora.get(Calendar.MONTH),
-            ahora.get(Calendar.DAY_OF_MONTH)
+            calendarioActual.get(Calendar.YEAR),
+            calendarioActual.get(Calendar.MONTH),
+            calendarioActual.get(Calendar.DAY_OF_MONTH)
         ).apply {
-            datePicker.minDate = ahora.timeInMillis
+            datePicker.minDate = calendarioActual.timeInMillis
         }.show()
     }
 
-    private fun mostrarSelectorHora() {
+    private fun mostrarTimePicker() {
+        if (fechaHoraSeleccionada == null) {
+            Toast.makeText(context, "Selecciona primero la fecha", Toast.LENGTH_SHORT).show()
+            return
+        }
         val ahora = Calendar.getInstance()
         TimePickerDialog(
             requireContext(),
-            { _, hour, minute ->
-                val selectedTime = Calendar.getInstance().apply {
-                    timeInMillis = selectedDate.timeInMillis
-                    set(Calendar.HOUR_OF_DAY, hour)
-                    set(Calendar.MINUTE, minute)
-                    set(Calendar.SECOND, 0)
-                }
-
-                val esHoy = DateUtils.isToday(selectedTime.timeInMillis)
-                if ((esHoy && selectedTime.after(ahora)) || !esHoy) {
-                    selectedDate.set(Calendar.HOUR_OF_DAY, hour)
-                    selectedDate.set(Calendar.MINUTE, minute)
-                    selectedDate.set(Calendar.SECOND, 0)
-                    actualizarTextoFechaHora()
-                } else {
-                    Toast.makeText(requireContext(), "Selecciona una hora futura válida.", Toast.LENGTH_SHORT).show()
-                }
+            { _, hora, minuto ->
+                fechaHoraSeleccionada?.set(Calendar.HOUR_OF_DAY, hora)
+                fechaHoraSeleccionada?.set(Calendar.MINUTE, minuto)
+                actualizarTexto()
             },
             ahora.get(Calendar.HOUR_OF_DAY),
             ahora.get(Calendar.MINUTE),
@@ -85,29 +68,33 @@ class PsicologiaFragment : Fragment() {
         ).show()
     }
 
-    private fun actualizarTextoFechaHora() {
-        val formato = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        tvFechaHora.text = "Fecha y hora seleccionadas: ${formato.format(selectedDate.time)}"
+    private fun actualizarTexto() {
+        fechaHoraSeleccionada?.let {
+            val formato = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+            binding.tvFechaHoraSeleccionada.text = "Fecha y hora seleccionadas: ${formato.format(it.time)}"
+        }
     }
 
-    private fun guardarCitaPsicologica() {
-        val ahora = Calendar.getInstance()
-        if (selectedDate.before(ahora) || selectedDate.time == ahora.time) {
-            Toast.makeText(requireContext(), "No puedes seleccionar una fecha/hora pasada", Toast.LENGTH_SHORT).show()
+    private fun guardarCita() {
+        val fechaHora = fechaHoraSeleccionada
+        if (fechaHora == null || fechaHora.before(Calendar.getInstance())) {
+            Toast.makeText(context, "Fecha y hora inválidas o no seleccionadas", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val formato = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        val fechaHora = formato.format(selectedDate.time)
+        val fecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(fechaHora.time)
+        val hora = SimpleDateFormat("HH:mm", Locale.getDefault()).format(fechaHora.time)
 
-        if (databaseHelper.citaYaExiste(fechaHora)) {
-            Toast.makeText(requireContext(), "Ya hay una cita registrada en ese horario. Elige otro.", Toast.LENGTH_SHORT).show()
+        val resultado = dbHelper.saveCita("Psicología", fecha, hora, "")
+        if (resultado) {
+            Toast.makeText(context, "Cita guardada exitosamente", Toast.LENGTH_SHORT).show()
         } else {
-            val resultado = databaseHelper.insertarCita(
-                Cita(tipo = "Psicología", fechaHora = fechaHora, clase = "")
-            )
-            val mensaje = if (resultado != -1L) "Cita guardada exitosamente" else "Error al guardar la cita"
-            Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Ya existe una cita para ese momento", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

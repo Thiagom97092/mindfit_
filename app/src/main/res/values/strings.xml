@@ -8,4 +8,6 @@
     <string name="img_layout_psicologia">Imagen de la pantalla de psicologia</string>
     <string name="img_layout_home">Imagen de la pantalla principal</string>
     <string name="img_layout_reservas">Imagen de la pantalla de reservas</string>
+    <string name="img_layout_recovery">Imagen de la pantalla de restablecer contaseña</string>
+    <string name="img_layout_history">Imagen de la pantalla de historial</string>
 </resources>

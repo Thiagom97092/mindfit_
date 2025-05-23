@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.mindfit.R
-import com.example.mindfit.database.DatabaseHelper
+import com.example.mindfit.utils.DatabaseHelper
 
 class PasswordRecoveryFragment : Fragment() {
 
@@ -40,7 +40,7 @@ class PasswordRecoveryFragment : Fragment() {
             } else if (newPassword != confirmPassword) {
                 Toast.makeText(requireContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
             } else {
-                val userExists = databaseHelper.checkUserExistsByEmail(email)
+                val userExists = databaseHelper.checkUserExists(email)
 
                 if (userExists) {
                     val updated = databaseHelper.updatePasswordByEmail(email, newPassword)

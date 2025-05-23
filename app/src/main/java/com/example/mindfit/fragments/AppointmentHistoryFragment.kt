@@ -5,7 +5,7 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.mindfit.R
-import com.example.mindfit.database.DatabaseHelper
+import com.example.mindfit.utils.DatabaseHelper
 
 class AppointmentHistoryFragment : Fragment() {
 
@@ -25,13 +25,16 @@ class AppointmentHistoryFragment : Fragment() {
         databaseHelper = DatabaseHelper(requireContext())
         listView = view.findViewById(R.id.listview_historial)
 
-        val citas = databaseHelper.getAllAppointments()
+        // ✅ Usa la función que retorna una lista
+        val citas = databaseHelper.getAllAppointmentsAsList()
 
         if (citas.isEmpty()) {
             Toast.makeText(requireContext(), "No hay citas registradas", Toast.LENGTH_SHORT).show()
         } else {
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, citas)
+            // ✅ Este constructor sí es válido
+            val adapter = ArrayAdapter(requireContext(), R.layout.list_item_white, R.id.text1, citas)
             listView.adapter = adapter
+
         }
     }
 }

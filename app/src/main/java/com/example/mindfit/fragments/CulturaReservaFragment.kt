@@ -7,7 +7,7 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.mindfit.R
-import com.example.mindfit.database.DatabaseHelper
+import com.example.mindfit.utils.DatabaseHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +39,7 @@ class CulturaReservaFragment : Fragment() {
         btnGuardar.setOnClickListener {
             val clase = spinner.selectedItem.toString()
             if (::selectedDate.isInitialized && ::selectedTime.isInitialized) {
-                val resultado = dbHelper.insertarCita("Cultura", clase, selectedDate, selectedTime)
+                val resultado = dbHelper.saveCita("Cultura", clase, selectedDate, selectedTime)
                 if (resultado) {
                     Toast.makeText(requireContext(), "Cita guardada correctamente", Toast.LENGTH_SHORT).show()
                 } else {
@@ -92,3 +92,4 @@ class CulturaReservaFragment : Fragment() {
         timePicker.show()
     }
 }
+
