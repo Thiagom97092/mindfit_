@@ -39,12 +39,12 @@ class RegisterFragment : Fragment() {
             return
         }
 
-        if (dbHelper.checkUserExists(email)) {
+        if (dbHelper.existeUsuario(email)) {
             Toast.makeText(requireContext(), "El usuario ya existe", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val success = dbHelper.insertUser(name, email, password)
+        val success = dbHelper.insertarUsuario(name, email, password)
 
         if (success) {
             Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()

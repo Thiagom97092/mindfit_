@@ -40,10 +40,10 @@ class PasswordRecoveryFragment : Fragment() {
             } else if (newPassword != confirmPassword) {
                 Toast.makeText(requireContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
             } else {
-                val userExists = databaseHelper.checkUserExists(email)
+                val userExists = databaseHelper.existeUsuario(email)
 
                 if (userExists) {
-                    val updated = databaseHelper.updatePasswordByEmail(email, newPassword)
+                    val updated = databaseHelper.actualizarContrasena(email, newPassword)
                     if (updated) {
                         Toast.makeText(requireContext(), "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show()
                         parentFragmentManager.popBackStack()

@@ -11,14 +11,13 @@ import com.example.mindfit.utils.DatabaseHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-
 class CulturaFragment : Fragment() {
 
     private var _binding: FragmentCulturaBinding? = null
     private val binding get() = _binding!!
     private lateinit var dbHelper: DatabaseHelper
     private var fechaHoraSeleccionada: Calendar? = null
+    private var correo: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +25,10 @@ class CulturaFragment : Fragment() {
     ): View {
         _binding = FragmentCulturaBinding.inflate(inflater, container, false)
         dbHelper = DatabaseHelper(requireContext())
+
+        val sharedPref = requireContext().getSharedPreferences("MindFitPrefs", android.content.Context.MODE_PRIVATE)
+        correo = sharedPref.getString("user_email", null)
+
 
         val clases = listOf("Música", "Pintura", "Danza", "Teatro")
         val adaptador = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, clases)
@@ -93,7 +96,10 @@ class CulturaFragment : Fragment() {
         val fecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(fechaHora.time)
         val hora = SimpleDateFormat("HH:mm", Locale.getDefault()).format(fechaHora.time)
 
-        val resultado = dbHelper.saveCita("Cultura", fecha, hora, clase)
+        val resultado = dbHelper.saveCita(
+            correo.orEmpty(), "Cultura", fecha, hora, clase
+        )
+
         if (resultado) {
             Toast.makeText(context, "Cita guardada exitosamente", Toast.LENGTH_SHORT).show()
         } else {

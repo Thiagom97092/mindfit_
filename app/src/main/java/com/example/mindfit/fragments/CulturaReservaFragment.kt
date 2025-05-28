@@ -17,6 +17,7 @@ class CulturaReservaFragment : Fragment() {
     private lateinit var selectedDate: String
     private lateinit var selectedTime: String
     private lateinit var spinner: Spinner
+    private var correo: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +25,8 @@ class CulturaReservaFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_cultura, container, false)
         dbHelper = DatabaseHelper(requireContext())
+
+        correo = arguments?.getString("correo")
 
         spinner = view.findViewById(R.id.spinner_clases_cultura)
         val clases = arrayOf("Pintura", "Baile", "Teatro", "Música")
@@ -39,7 +42,9 @@ class CulturaReservaFragment : Fragment() {
         btnGuardar.setOnClickListener {
             val clase = spinner.selectedItem.toString()
             if (::selectedDate.isInitialized && ::selectedTime.isInitialized) {
-                val resultado = dbHelper.saveCita("Cultura", clase, selectedDate, selectedTime)
+                val resultado = dbHelper.saveCita(
+                    correo.orEmpty(), "Cultura", selectedDate, selectedTime, clase
+                )
                 if (resultado) {
                     Toast.makeText(requireContext(), "Cita guardada correctamente", Toast.LENGTH_SHORT).show()
                 } else {
@@ -57,7 +62,7 @@ class CulturaReservaFragment : Fragment() {
         val calendario = Calendar.getInstance()
         val datePicker = DatePickerDialog(requireContext(),
             { _, año, mes, dia ->
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 calendario.set(año, mes, dia)
                 if (calendario.time.after(Date())) {
                     selectedDate = sdf.format(calendario.time)
@@ -92,4 +97,3 @@ class CulturaReservaFragment : Fragment() {
         timePicker.show()
     }
 }
-

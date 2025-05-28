@@ -1,5 +1,6 @@
 package com.example.mindfit.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +39,13 @@ class LoginFragment : Fragment() {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                val userName = databaseHelper.getUserNameByEmailAndPassword(email, password)
+                val userName = databaseHelper.obtenerNombrePorCorreoYContrasena(email, password)
 
                 if (userName != null) {
+                    // Guardar correo en SharedPreferences
+                    val sharedPref = requireContext().getSharedPreferences("MindFitPrefs", Context.MODE_PRIVATE)
+                    sharedPref.edit().putString("user_email", email).apply()
+
                     Toast.makeText(requireContext(), "Bienvenido $userName", Toast.LENGTH_SHORT).show()
 
                     parentFragmentManager.beginTransaction()

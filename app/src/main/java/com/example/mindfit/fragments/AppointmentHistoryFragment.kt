@@ -1,5 +1,6 @@
 package com.example.mindfit.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -25,16 +26,20 @@ class AppointmentHistoryFragment : Fragment() {
         databaseHelper = DatabaseHelper(requireContext())
         listView = view.findViewById(R.id.listview_historial)
 
-        // ✅ Usa la función que retorna una lista
-        val citas = databaseHelper.getAllAppointmentsAsList()
+        val sharedPref = requireContext().getSharedPreferences("MindFitPrefs", Context.MODE_PRIVATE)
+        val correo = sharedPref.getString("user_email", null)
 
-        if (citas.isEmpty()) {
-            Toast.makeText(requireContext(), "No hay citas registradas", Toast.LENGTH_SHORT).show()
+        if (correo != null) {
+            val citas = databaseHelper.obtenerCitasPorCorreo(correo)
+
+            if (citas.isEmpty()) {
+                Toast.makeText(requireContext(), "No hay citas registradas", Toast.LENGTH_SHORT).show()
+            } else {
+                val adapter = ArrayAdapter(requireContext(), R.layout.list_item_white, R.id.text1, citas)
+                listView.adapter = adapter
+            }
         } else {
-            // ✅ Este constructor sí es válido
-            val adapter = ArrayAdapter(requireContext(), R.layout.list_item_white, R.id.text1, citas)
-            listView.adapter = adapter
-
+            Toast.makeText(requireContext(), "Usuario no identificado", Toast.LENGTH_SHORT).show()
         }
     }
 }

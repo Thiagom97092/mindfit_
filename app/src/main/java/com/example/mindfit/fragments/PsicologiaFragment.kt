@@ -17,6 +17,7 @@ class PsicologiaFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var dbHelper: DatabaseHelper
     private var fechaHoraSeleccionada: Calendar? = null
+    private var correo: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +25,10 @@ class PsicologiaFragment : Fragment() {
     ): View {
         _binding = FragmentPsicologiaBinding.inflate(inflater, container, false)
         dbHelper = DatabaseHelper(requireContext())
+
+        val sharedPref = requireContext().getSharedPreferences("MindFitPrefs", android.content.Context.MODE_PRIVATE)
+        correo = sharedPref.getString("user_email", null)
+
 
         binding.btnSeleccionarFecha.setOnClickListener { mostrarDatePicker() }
         binding.btnSeleccionarHora.setOnClickListener { mostrarTimePicker() }
@@ -85,7 +90,10 @@ class PsicologiaFragment : Fragment() {
         val fecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(fechaHora.time)
         val hora = SimpleDateFormat("HH:mm", Locale.getDefault()).format(fechaHora.time)
 
-        val resultado = dbHelper.saveCita("Psicología", fecha, hora, "")
+        val resultado = dbHelper.saveCita(
+            correo.orEmpty(), "Psicología", fecha, hora, ""
+        )
+
         if (resultado) {
             Toast.makeText(context, "Cita guardada exitosamente", Toast.LENGTH_SHORT).show()
         } else {
